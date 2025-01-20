@@ -174,6 +174,10 @@ func runServer() {
 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
 	// 阻塞，直到接收到信号
 	<-signalChan
+	err = hts.Shutdown()
+	if err != nil {
+		clog.Failed(err)
+	}
 	clog.Info("process exit")
 }
 
